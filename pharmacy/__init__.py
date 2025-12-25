@@ -1,40 +1,28 @@
 import os
 from flask import Flask
-from flask import render_template
-from flask import request
-from flask_sqlalchemy import SQLAlchemy
-from flask import redirect
+from .extensions import db
 
-project_dir = os.path.dirname(os.path.abspath(__file__))
-database_file = "sqlite:///{}".format(os.path.join(project_dir, "../medidatabase.db"))
+def create_app():
 
-app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = database_file
+    app = Flask(__name__)
+    app.secret_key = "dev-secret"
 
-db = SQLAlchemy(app)
+    app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:FerrariRoma%40V12@localhost/pharmacy_db"
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-class Medicine(db.Model):
-    name = db.Column(db.String(80), unique=True, nullable=False, primary_key=True)
+    db.init_app(app)
 
-    def __repr__(self):
-        return "<Name: {}>".format(self.name)
+    from .routes.medicine_routes import medicine_bp
+    app.register_blueprint(medicine_bp)
 
-@app.route("/", methods=["GET", "POST"])
-def home():
-    if request.form:
-        medicine = Medicine(name=request.form.get("name"))
-        db.session.add(medicine)
-        db.session.commit()
-    medicines = Medicine.query.all()
-    return render_template("home.html", medicines=medicines)
+    from .routes.auth_routes import auth_bp
+    app.register_blueprint(auth_bp)
 
-@app.route("/delete", methods=["POST"])
-def delete():
-    name=request.form.get("name")
-    medicine = Medicine.query.filter_by(name=name).first()
-    db.session.delete(medicine)
-    db.session.commit()
-    return redirect("/")
+    @app.before_request
+    def require_login():
+        from flask import request, redirect, session
+        if request.endpoint not in ("auth.login", "static"):
+            if "role" not in session:
+                return redirect("/login")
 
-if __name__ == "__main__":
-    app.run()
+    return app

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pharmacy Management System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+<body>
+
+<div class="dashboard">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">Pharmacy</div>
+        <nav>
+            <a class="active">Inventory</a>
+            <a>Orders</a>
+            <a>Sales</a>
+            <a>Reports</a>
+            <a>Settings</a>
+        </nav>
+    </aside>
+
+    <!-- Main -->
+    <div class="main">
+        <header class="topbar">
+            <input type="text" placeholder="Search...">
+            <div class="user">Admin</div>
+        </header>
+
+        <section class="content">
+            {% block content %}{% endblock %}
+        </section>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>
