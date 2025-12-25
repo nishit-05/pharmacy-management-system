@@ -90,17 +90,11 @@ The following metrics were evaluated in a test environment by comparing the base
 - Migrated from unconstrained CRUD operations to relational consistency using MySQL
 - Enforced stock constraints and transactional updates
 
-**Result:**  
-> Achieved ~99% prevention of invalid inventory states in controlled test scenarios.
-
 ---
 
 ### 2. Invalid Operation Reduction
 - Added validation for dispense quantity and stock availability
 - Blocked negative stock and over-dispensing cases
-
-**Result:**  
-> Reduced invalid inventory and order operations by approximately **25%** through service-layer validation.
 
 ---
 
