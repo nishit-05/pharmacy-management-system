@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h1>Products Inventory</h1>
+
+<div class="cards">
+    <div class="card">
+        <h3>Total Medicines</h3>
+        <p>{{ medicines|length }}</p>
+    </div>
+    <div class="card">
+        <h3>Low Stock</h3>
+        <p>{{ medicines | selectattr("stock_quantity", "le", 10) | list | length }}</p>
+    </div>
+    <div class="card">
+        <h3>Out of Stock</h3>
+        <p>{{ medicines | selectattr("stock_quantity", "equalto", 0) | list | length }}</p>
+    </div>
+</div>
+
+<table class="inventory-table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Unit</th>
+            <th>Stock</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for med in medicines %}
+        <tr>
+            <td>{{ med.name }}</td>
+            <td>{{ med.unit_type }}</td>
+            <td>{{ med.stock_quantity }}</td>
+            <td>
+                {% if med.stock_quantity == 0 %}
+                    <span class="badge danger">Out</span>
+                {% elif med.stock_quantity <= med.min_stock_level %}
+                    <span class="badge warning">Low</span>
+                {% else %}
+                    <span class="badge success">OK</span>
+                {% endif %}
+            </td>
+            <td class="actions">
+                <form action="/dispense/{{ med.id }}" method="post">
+                    <input type="number" name="quantity" min="1" required>
+                    <button>Dispense</button>
+                </form>
+                <form action="/delete/{{ med.id }}" method="post">
+                    <button class="danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
