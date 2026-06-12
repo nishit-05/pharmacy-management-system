@@ -1,5 +1,11 @@
 # Pharmacy Management System
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white)
+![Flask](https://img.shields.io/badge/Flask-000000?logo=flask&logoColor=white)
+![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-D71F00?logo=sqlalchemy&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?logo=mysql&logoColor=white)
+
 A full-stack web application designed to manage pharmacy inventory, dispensing operations, and sales records, built with a strong emphasis on **data integrity, business logic correctness, and system design** rather than UI-heavy presentation.
 
 ---
@@ -57,15 +63,16 @@ This transformation is central to the value of the project.
 
 ## Architecture Overview
 
+```
 pharmacy/
-├── routes/ # Request handling (Flask blueprints)
-├── services/ # Business logic & validation
-├── models/ # Database models
-├── templates/ # Frontend views (HTML)
-├── static/ # CSS & JavaScript
-├── extensions.py # Database initialization
-└── init.py # App factory
-
+├── routes/          # Request handling (Flask blueprints)
+├── services/        # Business logic & validation
+├── models/          # Database models
+├── templates/       # Frontend views (HTML)
+├── static/          # CSS & JavaScript
+├── extensions.py    # Database initialization
+└── __init__.py      # App factory
+```
 
 This structure follows **industry-standard separation of concerns**, making the codebase easier to maintain and extend.
 
@@ -132,14 +139,15 @@ The following metrics were evaluated in a test environment by comparing the base
 
 ---
 
-## Author
+## License
 
-**Nishit Dongre**
-
-- LinkedIn: [http://linkedin.com/in/nishit-dongre-675031382](http://linkedin.com/in/nishit-dongre-675031382)
+This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
 
 ---
 
-## License
+## Author
 
-This project is intended for educational and portfolio use.
+**Nishit Dongre**  
+B.Tech in Electrical and Computer Engineering
+
+[LinkedIn](https://www.linkedin.com/in/nishitdongre/) • [Email](mailto:nishitdongre@gmail.com)
